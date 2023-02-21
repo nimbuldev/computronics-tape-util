@@ -1,9 +1,3 @@
---[[ A Utility Program for Computronics Cassette Tapes.
-Provides:
-	- automatic tape writing from web location
-	- automatic tape looping
-	- More in future updates
-]]
 local args = { ... }
 
 local function getFile(url, fname)
@@ -34,25 +28,12 @@ local function getFile(url, fname)
 	end
 end
 
-
 local function helpText()
 	print("Usage:")
 	print(" - 'tape-util' to display this help text")
 	print(" - 'tape-util loop' to loop a cassette tape")
 	print(" - 'tape-util dl [github dir]' to write github directory to tape")
 	return
-end
-
-
-
-
---TAPE LOOP CONTENT------------
---Program for looping tracks
-
-local tape = peripheral.find("tape_drive")
-if not tape then
-	-- 	print("This program requires a tape drive to run.")
-	-- 	return
 end
 
 --Returns true if position 1 away is zero
@@ -90,8 +71,6 @@ local function findTapeEnd(...)
 	for i = 0, tapeSize do --for every piece of the tape
 		os.queueEvent("randomEvent") -- timeout
 		os.pullEvent() -- prevention
-
-
 		tape.seek(accuracy) --seek forward one unit (One takes too long, bigger values not as accurate)
 		if tape.read() ~= 0 then --if current location is not a zero
 			runningEnd = i * accuracy --Update Running runningEnd var. i * accuracy gets current location in tape
@@ -103,14 +82,12 @@ local function findTapeEnd(...)
 	end
 end
 
---Main Function
 local function looper(...)
 	print("Initializing...")
 	--find tape end
 	print("Locating end of song...")
 	local endLoc = findTapeEnd()
 	print("End of song at position " .. endLoc .. ", or " .. endLoc / 6000 .. " seconds in\n")
-
 	print("Starting Loop! Hold Ctrl+T to Terminate")
 	while true do
 		tape.seek( -tape.getSize())
@@ -119,17 +96,9 @@ local function looper(...)
 		sleep(endLoc / 6000)
 		print("Song Ended, Restarting...")
 	end
-
 	--play tape until
 end
 
---END TAPE LOOP CONTENT---------------------------------
-
-
-
-
-
---START TAPE DL CONTENT--------------------------------
 --Credit to the writers of Computronics for the bulk of wrtieTapeModified() function, see README for more info.
 local function writeTape(relPath)
 	local file, msg, _, y, success
@@ -214,16 +183,13 @@ local function tapeDl(url)
 	tape.seek( -tape.getSize())
 end
 
-
 -- Main
-local tape = peripheral.find("tape_drive")
+tape = peripheral.find("tape_drive")
 if not tape then
 	print("This program requires a tape drive to run.")
 	return
 end
-
 tape.seek( -tape.getSize())
-
 if args[1] == "loop" then
 	looper()
 elseif args[1] == "dl" then
@@ -234,13 +200,3 @@ elseif args[1] == "dl" then
 else
 	helpText()
 end
-
-
---[[ known issues:
-tape-util dl, does not rewind at start.
-tape-util dl, should say when it rewinds at end, that the program is finished.
-findTapeEnd, timeout protection might not be necessary anymore, adding bloat.
-looper(), could do with some cleaner prints. can screen be cleared?
-looper(), needs accuracy argument! will be very slow on larger cassettes to find length
-
-]]
