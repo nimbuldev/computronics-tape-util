@@ -158,6 +158,7 @@ local function writeTape(relPath)
 end
 
 local function tapeDl(url)
+	tape.seek( -tape.getSize())
 	local page = http.get(url)
 	local pageHTML = page.readAll()
 	page.close()
@@ -194,7 +195,6 @@ if args[1] == "loop" then
 elseif args[1] == "dl" then
 	if args[2] ~= nil then
 		print("running tapeDl")
-		tape.seek( -tape.getSize())
 		tapeDl(args[2])
 	end
 else
