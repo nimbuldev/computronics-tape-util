@@ -37,9 +37,9 @@ In either order:
 #### Running
 
 Run the Program with
-`tape-util dl [Directory URL]`
-
-for example: `tape-util dl https://github.com/nimbuldev/computronics-tape-util/tree/master/example-files`
+`tape-util dl [Directory URL]` 
+ 
+for example: `tape-util dl https://github.com/nimbuldev/computronics-tape-util/tree/master/example-files` 
 
 ### Song Looper Utility
 
