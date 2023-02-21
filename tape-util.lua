@@ -189,12 +189,12 @@ if not tape then
 	print("This program requires a tape drive to run.")
 	return
 end
-tape.seek( -tape.getSize())
 if args[1] == "loop" then
 	looper()
 elseif args[1] == "dl" then
 	if args[2] ~= nil then
 		print("running tapeDl")
+		tape.seek( -tape.getSize())
 		tapeDl(args[2])
 	end
 else
