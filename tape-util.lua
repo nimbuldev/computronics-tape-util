@@ -99,7 +99,7 @@ local function looper(...)
 	--play tape until
 end
 
---Credit to the writers of Computronics for the bulk of wrtieTapeModified() function, see README for more info.
+--Credit to the writers of Computronics for the bulk of writeTapeModified() function, see README for more info.
 local function writeTape(relPath)
 	local file, msg, _, y, success
 	local block = 8192 --How much to read at a time
@@ -169,7 +169,7 @@ local function tapeDl(url)
 			file = "https://github.com" .. file
 		end
 		file = file:gsub("blob", "raw")
-		table.insert(dfpwmFiles, file)
+		dfpwmFiles:insert(file)
 	end
 
 	for file in pairs(dfpwmFiles) do
